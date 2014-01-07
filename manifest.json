@@ -14,7 +14,7 @@
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["js/inject/debug.js"],
+      "js": ["js/inject/debug-visual.js"],
       "run_at": "document_start"
     }
   ],
