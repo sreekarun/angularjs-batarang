@@ -2,6 +2,8 @@ var inject = function () {
   document.head.appendChild((function () {
 
     var fn = function bootstrap (window){
+
+        var __vd = {};
         /*******************************************/
         //Helpers
         /*******************************************/
@@ -61,10 +63,63 @@ var inject = function () {
         };
         // End
         // ===
+        var class2type = {};
+        var core_toString = class2type.toString;
+        var core_hasOwn = class2type.hasOwnProperty;
+        var items = "Boolean Number String Function Array Date RegExp Object Error";
+        items.split(" ").forEach(function(name , i) {
+            class2type[ "[object " + name + "]" ] = name.toLowerCase();
+        });
+        var type = function( obj ) {
+            if ( obj == null ) {
+                return String( obj );
+            }
+            return typeof obj === "object" || typeof obj === "function" ?
+                class2type[ core_toString.call(obj) ] || "object" :
+                typeof obj;
+        };
+        var isWindow = function( obj ) {
+            /* jshint eqeqeq: false */
+            return obj != null && obj == obj.window;
+        };
+
+        var isPlainObject = function( obj ) {
+            var key;
+
+            // Must be an Object.
+            // Because of IE, we also have to check the presence of the constructor property.
+            // Make sure that DOM nodes and window objects don't pass through, as well
+            if ( !obj || type(obj) !== "object" || obj.nodeType || isWindow( obj ) ) {
+                return false;
+            }
+
+            try {
+                // Not own constructor property must be Object
+                if ( obj.constructor &&
+                    !core_hasOwn.call(obj, "constructor") &&
+                    !core_hasOwn.call(obj.constructor.prototype, "isPrototypeOf") ) {
+                    return false;
+                }
+            } catch ( e ) {
+                // IE8,9 Will throw exceptions on certain host objects #9897
+                return false;
+            }
+
+
+            // Own properties are enumerated firstly, so to speed up,
+            // if last one is own, then all properties are own.
+            for ( key in obj ) {}
+
+            return key === undefined || core_hasOwn.call( obj, key );
+        };
+
 
         window.visualDebug = {};
         var vd = window.visualDebug;
         vd.version = "0.0.1";
+        vd.keys = Object.keys(window).filter(function(item, index){
+            return isPlainObject(window[item]);
+        });
 
     };
 
@@ -78,5 +133,4 @@ var inject = function () {
   }()));
 };
 
-// only inject if cookie is set
   document.addEventListener('DOMContentLoaded', inject);
