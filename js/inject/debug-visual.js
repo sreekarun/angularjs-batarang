@@ -66,7 +66,7 @@ var inject = function () {
         var vd = window.visualDebug;
         vd.version = "0.0.1";
 
-    }
+    };
 
 
 
