@@ -1,3 +1,15 @@
+# 0.0.1 (2014-06-23)
+
+
+
+## Bug fixes
+### instrumentation
+
+* fix patchin provider object with array properties (a5ecad55)
+
+
+
+
 # 0.4.3 (2013-06-26)
 
 
