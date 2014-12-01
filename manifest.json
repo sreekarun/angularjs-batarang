@@ -1,6 +1,6 @@
 {
   "name": "Visual Debug",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Extends the Developer Tools, adding tools for visualizing JavaScript and HTML entities",
   "background": {
     "page": "background.html"
