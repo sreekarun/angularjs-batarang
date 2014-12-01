@@ -106,6 +106,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-zip');
   grunt.loadNpmTasks('grunt-conventional-changelog');
 
+  grunt.registerTask('full', ['bump', 'markdown', 'changelog', 'release', 'zip']);
   grunt.registerTask('default', ['bump', 'markdown', 'changelog', 'release', 'zip']);
 
 };
